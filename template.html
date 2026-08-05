@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soovi Heartburn Gum — Fast Relief Designed for GLP-1 Users</title>
+  <meta name="description" content="Pocket-sized heartburn relief gum designed for GLP-1 users. Fast-acting mint gum—not chalky tablets.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="images/drewfavicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f3f1f6;
+      --bg-hero: #ffffff;
+      --surface: #ffffff;
+      --text: #1a1228;
+      --muted: #5c5368;
+      --purple: #5c2d91;
+      --purple-dark: #451f6e;
+      --purple-soft: #7a4aad;
+      --green: #6bbf45;
+      --green-dark: #4fa32e;
+      --border: #d9d0e4;
+      --shadow-btn: 3px 3px 0 #451f6e;
+      --radius-hero: 0 0 28px 28px;
+      --max: 520px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* —— Hero —— */
+    .hero {
+      background: #ffffff;
+      border-radius: 0;
+      padding: 28px 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: none;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: rise 0.8s ease forwards;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+
+    /* —— Value prop —— */
+    .value {
+      padding: 32px 0 8px;
+      text-align: left;
+    }
+
+    .value .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .value-inner {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .value h1 {
+      font-size: clamp(1.85rem, 7vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .value h1 .accent {
+      display: block;
+      color: var(--purple);
+      margin-top: 4px;
+    }
+
+    .benefits {
+      list-style: none;
+      margin: 28px 0 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .check {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--purple);
+      display: grid;
+      place-items: center;
+      margin-top: 1px;
+    }
+
+    .check svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .punchline {
+      margin-top: 28px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    /* —— CTA block —— */
+    .cta-block {
+      padding: 36px 0 48px;
+      text-align: center;
+    }
+
+    .btn-wrap {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 380px;
+      padding-top: 12px;
+    }
+
+    .btn-badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      background: var(--green);
+      color: var(--text);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 6px;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 380px;
+      padding: 18px 28px;
+      background: var(--purple);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      border-radius: 999px;
+      box-shadow: var(--shadow-btn);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--purple-dark);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 #2e144a;
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #2e144a;
+    }
+
+    .guarantee {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--purple);
+      background: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .guarantee:hover span {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guarantee svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .guarantee u {
+      text-underline-offset: 3px;
+    }
+
+    /* —— Modal —— */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(26, 18, 40, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      width: min(420px, 100%);
+      position: relative;
+      box-shadow: 0 20px 50px rgba(26, 18, 40, 0.25);
+      transform: translateY(10px);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-backdrop.open .modal {
+      transform: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .modal h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--purple);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      padding-right: 28px;
+    }
+
+    .modal p {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* —— Features —— */
+    .features {
+      background: var(--surface);
+      padding: 56px 0 64px;
+    }
+
+    .features-head {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features-head h2 {
+      font-size: clamp(1.75rem, 6vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--purple);
+      margin-bottom: 10px;
+    }
+
+    .features-head p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 34ch;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 24px;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 14px;
+      color: var(--purple);
+    }
+
+    .feature-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .feature p {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* —— Bottom CTA —— */
+    .bottom-cta {
+      padding: 48px 0 56px;
+      text-align: center;
+    }
+
+    /* —— Footer —— */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 20px 40px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer .brand {
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 6px;
+    }
+
+    /* —— Reveal on scroll —— */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (min-width: 640px) {
+      :root { --max: 560px; }
+
+      .hero { padding: 36px 28px 28px; }
+
+      .grid { gap: 44px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Replace with your live Stripe Checkout / Payment Link -->
+  <script>
+    window.SOOVI_CHECKOUT_URL = "https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00";
+  </script>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-visual">
+        <img
+          src="images/drewhero.png"
+          alt="Soovi Heartburn Gum — pocket-sized relief designed for GLP-1 users"
+          width="1024"
+          height="1024"
+        >
+      </div>
+    </div>
+  </header>
+
+  <section class="value">
+    <div class="wrap">
+      <div class="value-inner">
+        <h1 class="reveal">
+          Heartburn Happens.
+          <span class="accent">Soovi Stops It.</span>
+        </h1>
+        <ul class="benefits reveal">
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Fast-acting heartburn relief
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Designed for GLP-1 users
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Refreshing mint gum—not chalky tablets
+          </li>
+        </ul>
+        <p class="punchline reveal">No chalky chews. No giant tablets. Just gum.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-block" id="buy">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="btn-wrap">
+          <span class="btn-badge">Get Fast Relief</span>
+          <a class="btn js-checkout" href="https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00">Start Now</a>
+        </div>
+        <button type="button" class="guarantee js-guarantee" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--green)" stroke="none"/>
+            <polyline points="7 12.5 10.5 16 17 8.5" fill="none" stroke="#fff" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>30-Day <u>Happiness Guarantee</u></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <div class="features-head reveal">
+        <h2>Small Gum. Big Relief.</h2>
+        <p>Pocket-sized heartburn relief for wherever your day takes you.</p>
+      </div>
+      <div class="grid">
+        <article class="feature reveal">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Pill / capsule -->
+            <svg viewBox="0 0 48 48">
+              <path d="M15.5 32.5a7 7 0 0 1 0-9.9l9.9-9.9a7 7 0 0 1 9.9 9.9l-9.9 9.9a7 7 0 0 1-9.9 0z"/>
+              <path d="M20.5 17.5l10 10"/>
+            </svg>
+          </div>
+          <h3>Made for GLP-1 Users</h3>
+          <p>Designed around one of the most common GLP-1 complaints.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Bolt -->
+            <svg viewBox="0 0 48 48">
+              <path d="M27 5L13 26h11l-3 17 16-23H26L27 5z"/>
+            </svg>
+          </div>
+          <h3>Fast Relief</h3>
+          <p>Helps calm heartburn when it strikes.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Mint leaf -->
+            <svg viewBox="0 0 48 48">
+              <path d="M24 40c2-12 10-20 18-24-4 14-10 22-18 24z"/>
+              <path d="M24 40c-2-12-10-20-18-24 4 14 10 22 18 24z"/>
+              <path d="M24 40V16"/>
+            </svg>
+          </div>
+          <h3>Refreshing Mint</h3>
+          <p>A gum you'll actually enjoy chewing.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="feature-icon" aria-hidden="true">
+            <!-- Pocket / on the go -->
+            <svg viewBox="0 0 48 48">
+              <path d="M14 10h20a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3z"/>
+              <path d="M11 18h26"/>
+              <path d="M20 28h8"/>
+            </svg>
+          </div>
+          <h3>On The Go</h3>
+          <p>No water or chalky tablets required.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-cta">
+    <div class="wrap reveal">
+      <a class="btn js-checkout" href="https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00">Get Soovi</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand">SOOVI</div>
+    <p>Heartburn Gum · Dietary Supplement</p>
+    <p style="margin-top:8px;">&copy; <span id="year"></span> Soovi. All rights reserved.</p>
+  </footer>
+
+  <div class="modal-backdrop" id="guarantee-modal" role="dialog" aria-modal="true" aria-labelledby="guarantee-title" hidden>
+    <div class="modal">
+      <button type="button" class="modal-close js-modal-close" aria-label="Close">&times;</button>
+      <h2 id="guarantee-title">Love It, Or We'll Make It Right.</h2>
+      <p>We created Soovi to be the heartburn relief you'll actually enjoy taking. If you're not completely satisfied with your first order, let us know within 30 days and we'll make it right.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var url = window.SOOVI_CHECKOUT_URL;
+      document.querySelectorAll(".js-checkout").forEach(function (el) {
+        el.setAttribute("href", url);
+        el.setAttribute("target", "_blank");
+        el.setAttribute("rel", "noopener noreferrer");
+      });
+
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      var modal = document.getElementById("guarantee-modal");
+      var lastFocus = null;
+
+      function openModal() {
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        requestAnimationFrame(function () {
+          modal.classList.add("open");
+        });
+        document.body.style.overflow = "hidden";
+        var closeBtn = modal.querySelector(".js-modal-close");
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+        setTimeout(function () {
+          modal.hidden = true;
+          if (lastFocus) lastFocus.focus();
+        }, 200);
+      }
+
+      document.querySelectorAll(".js-guarantee").forEach(function (el) {
+        el.addEventListener("click", openModal);
+      });
+
+      modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+      });
+
+      var nodes = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: "0px 0px -24px 0px" });
+        nodes.forEach(function (n) { io.observe(n); });
+      } else {
+        nodes.forEach(function (n) { n.classList.add("visible"); });
+      }
+    })();
+  </script>
+</body>
+</html>
