@@ -3,13 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soovi Heartburn Gum — Fast Relief Designed for GLP-1 Users</title>
-  <meta name="description" content="Pocket-sized heartburn relief gum designed for GLP-1 users. Fast-acting mint gum—not chalky tablets.">
+  <!-- [8] BRAND_NAME — also update title/description to match the product -->
+  <title>[[8_BRAND_NAME]] — [[3_HERO_HEADER]]</title>
+  <meta name="description" content="[[8_BRAND_NAME]] landing page.">
   <meta name="robots" content="noindex,nofollow">
-  <link rel="icon" href="images/drewfavicon.png" type="image/png">
+  <!-- [1] FAVICON — square PNG with transparent background; lives in images/[[8_BRAND_SLUG]]/ -->
+  <link rel="icon" href="images/[[8_BRAND_SLUG]]/[[1_FAVICON]]" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Unique Meta / visitor ID for this page load — also saved to Airtable "Meta ID" -->
+  <script>
+    window.PWB_META_ID = (function () {
+      try {
+        if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+      } catch (e) {}
+      return "pwb_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
+    })();
+  </script>
+  <!-- Meta Pixel (Peak Wise Brands) — do not remove -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1152306306722430');
+    fbq('track', 'PageView', {}, { eventID: window.PWB_META_ID });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1152306306722430&ev=PageView&noscript=1"
+    alt=""
+  ></noscript>
   <style>
     :root {
       --bg: #f3f1f6;
@@ -17,13 +45,14 @@
       --surface: #ffffff;
       --text: #1a1228;
       --muted: #5c5368;
-      --purple: #5c2d91;
-      --purple-dark: #451f6e;
-      --purple-soft: #7a4aad;
-      --green: #6bbf45;
-      --green-dark: #4fa32e;
+      /* [24] PRIMARY_COLOR — main brand color (buttons, headings, checks, accents). Example: purple #5c2d91 */
+      --primary: [[24_PRIMARY_COLOR]];
+      /* [24b] PRIMARY_COLOR_DARK — darker shade for hover + button shadow. Example: #451f6e */
+      --primary-dark: [[24_PRIMARY_COLOR_DARK]];
+      /* [25] SECONDARY_COLOR — accent (CTA badge, guarantee icon). Example: green #6bbf45 */
+      --secondary: [[25_SECONDARY_COLOR]];
       --border: #d9d0e4;
-      --shadow-btn: 3px 3px 0 #451f6e;
+      --shadow-btn: 3px 3px 0 var(--primary-dark);
       --radius-hero: 0 0 28px 28px;
       --max: 520px;
     }
@@ -103,7 +132,7 @@
 
     .value h1 .accent {
       display: block;
-      color: var(--purple);
+      color: var(--primary);
       margin-top: 4px;
     }
 
@@ -131,7 +160,7 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: var(--purple);
+      background: var(--primary);
       display: grid;
       place-items: center;
       margin-top: 1px;
@@ -175,7 +204,7 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1;
-      background: var(--green);
+      background: var(--secondary);
       color: var(--text);
       font-size: 0.68rem;
       font-weight: 800;
@@ -195,7 +224,7 @@
       width: 100%;
       max-width: 380px;
       padding: 18px 28px;
-      background: var(--purple);
+      background: var(--primary);
       color: #fff;
       font-family: inherit;
       font-size: 1.15rem;
@@ -209,14 +238,14 @@
     }
 
     .btn:hover {
-      background: var(--purple-dark);
+      background: var(--primary-dark);
       transform: translate(-1px, -1px);
-      box-shadow: 4px 4px 0 #2e144a;
+      box-shadow: 4px 4px 0 var(--primary-dark);
     }
 
     .btn:active {
       transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0 #2e144a;
+      box-shadow: 1px 1px 0 var(--primary-dark);
     }
 
     .guarantee {
@@ -226,7 +255,7 @@
       margin-top: 16px;
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--purple);
+      color: var(--primary);
       background: none;
       border: none;
       font-family: inherit;
@@ -308,7 +337,7 @@
     .modal h2 {
       font-size: 1.35rem;
       font-weight: 800;
-      color: var(--purple);
+      color: var(--primary);
       line-height: 1.25;
       margin-bottom: 14px;
       padding-right: 28px;
@@ -335,7 +364,7 @@
       font-size: clamp(1.75rem, 6vw, 2.2rem);
       font-weight: 800;
       letter-spacing: -0.02em;
-      color: var(--purple);
+      color: var(--primary);
       margin-bottom: 10px;
     }
 
@@ -360,23 +389,19 @@
       width: 48px;
       height: 48px;
       margin: 0 auto 14px;
-      color: var(--purple);
+      color: var(--primary);
     }
 
-    .feature-icon svg {
+    .feature-icon img {
       width: 100%;
       height: 100%;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      object-fit: contain;
     }
 
     .feature h3 {
       font-size: 1.05rem;
       font-weight: 700;
-      color: var(--purple);
+      color: var(--primary);
       margin-bottom: 8px;
       line-height: 1.25;
     }
@@ -404,7 +429,7 @@
 
     footer .brand {
       font-weight: 700;
-      color: var(--purple);
+      color: var(--primary);
       margin-bottom: 6px;
     }
 
@@ -436,17 +461,18 @@
 </head>
 <body>
 
-  <!-- Replace with your live Stripe Checkout / Payment Link -->
+  <!-- [26] CHECKOUT_URL — Stripe Payment Link for this brand -->
   <script>
-    window.SOOVI_CHECKOUT_URL = "https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00";
+    window.CHECKOUT_URL = "[[26_CHECKOUT_URL]]";
   </script>
 
   <header class="hero">
     <div class="wrap">
       <div class="hero-visual">
+        <!-- [2] HERO_IMAGE — product image (may include text/badges); lives in images/[[8_BRAND_SLUG]]/ -->
         <img
-          src="images/drewhero.png"
-          alt="Soovi Heartburn Gum — pocket-sized relief designed for GLP-1 users"
+          src="images/[[8_BRAND_SLUG]]/[[2_HERO_IMAGE]]"
+          alt="[[8_BRAND_NAME]]"
           width="1024"
           height="1024"
         >
@@ -457,31 +483,33 @@
   <section class="value">
     <div class="wrap">
       <div class="value-inner">
+        <!-- [3] HERO_HEADER — main headline; use .accent span for the primary-colored second line if desired -->
         <h1 class="reveal">
-          Heartburn Happens.
-          <span class="accent">Soovi Stops It.</span>
+          [[3_HERO_HEADER]]
         </h1>
         <ul class="benefits reveal">
+          <!-- [4] HERO_BULLET_1 / HERO_BULLET_2 / HERO_BULLET_3 -->
           <li>
             <span class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
             </span>
-            Fast-acting heartburn relief
+            [[4_HERO_BULLET_1]]
           </li>
           <li>
             <span class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
             </span>
-            Designed for GLP-1 users
+            [[4_HERO_BULLET_2]]
           </li>
           <li>
             <span class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
             </span>
-            Refreshing mint gum—not chalky tablets
+            [[4_HERO_BULLET_3]]
           </li>
         </ul>
-        <p class="punchline reveal">No chalky chews. No giant tablets. Just gum.</p>
+        <!-- [5] HERO_SUBHEADER — punchline under the 3 bullets -->
+        <p class="punchline reveal">[[5_HERO_SUBHEADER]]</p>
       </div>
     </div>
   </section>
@@ -490,12 +518,14 @@
     <div class="wrap">
       <div class="reveal">
         <div class="btn-wrap">
-          <span class="btn-badge">Get Fast Relief</span>
-          <a class="btn js-checkout" href="https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00">Start Now</a>
+          <!-- [7] BUTTON_1_HELPER_TEXT — small secondary-color badge above the button -->
+          <span class="btn-badge">[[7_BUTTON_1_HELPER_TEXT]]</span>
+          <!-- [6] BUTTON_1_MAIN_TEXT — primary CTA button -->
+          <a class="btn js-checkout js-checkout-1" href="#" data-cta="1">[[6_BUTTON_1_MAIN_TEXT]]</a>
         </div>
         <button type="button" class="guarantee js-guarantee" aria-haspopup="dialog">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="var(--green)" stroke="none"/>
+            <circle cx="12" cy="12" r="10" fill="var(--secondary)" stroke="none"/>
             <polyline points="7 12.5 10.5 16 17 8.5" fill="none" stroke="#fff" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span>30-Day <u>Happiness Guarantee</u></span>
@@ -507,54 +537,55 @@
   <section class="features">
     <div class="wrap">
       <div class="features-head reveal">
-        <h2>Small Gum. Big Relief.</h2>
-        <p>Pocket-sized heartburn relief for wherever your day takes you.</p>
+        <!-- [9] SECTION_1_HEADER -->
+        <h2>[[9_SECTION_1_HEADER]]</h2>
+        <!-- [10] SECTION_1_SUBHEADER -->
+        <p>[[10_SECTION_1_SUBHEADER]]</p>
       </div>
       <div class="grid">
+        <!-- Benefit #1 -->
         <article class="feature reveal">
+          <!-- [12] SECTION_1_BENEFIT_1_ICON — image filename in images/[[8_BRAND_SLUG]]/ -->
           <div class="feature-icon" aria-hidden="true">
-            <!-- Pill / capsule -->
-            <svg viewBox="0 0 48 48">
-              <path d="M15.5 32.5a7 7 0 0 1 0-9.9l9.9-9.9a7 7 0 0 1 9.9 9.9l-9.9 9.9a7 7 0 0 1-9.9 0z"/>
-              <path d="M20.5 17.5l10 10"/>
-            </svg>
+            <img src="images/[[8_BRAND_SLUG]]/[[12_SECTION_1_BENEFIT_1_ICON]]" alt="" width="48" height="48">
           </div>
-          <h3>Made for GLP-1 Users</h3>
-          <p>Designed around one of the most common GLP-1 complaints.</p>
+          <!-- [11] SECTION_1_BENEFIT_1_TITLE -->
+          <h3>[[11_SECTION_1_BENEFIT_1_TITLE]]</h3>
+          <!-- [13] SECTION_1_BENEFIT_1_SUBHEADER -->
+          <p>[[13_SECTION_1_BENEFIT_1_SUBHEADER]]</p>
         </article>
+        <!-- Benefit #2 -->
         <article class="feature reveal">
+          <!-- [15] SECTION_1_BENEFIT_2_ICON — image filename in images/[[8_BRAND_SLUG]]/ -->
           <div class="feature-icon" aria-hidden="true">
-            <!-- Bolt -->
-            <svg viewBox="0 0 48 48">
-              <path d="M27 5L13 26h11l-3 17 16-23H26L27 5z"/>
-            </svg>
+            <img src="images/[[8_BRAND_SLUG]]/[[15_SECTION_1_BENEFIT_2_ICON]]" alt="" width="48" height="48">
           </div>
-          <h3>Fast Relief</h3>
-          <p>Helps calm heartburn when it strikes.</p>
+          <!-- [14] SECTION_1_BENEFIT_2_TITLE -->
+          <h3>[[14_SECTION_1_BENEFIT_2_TITLE]]</h3>
+          <!-- [16] SECTION_1_BENEFIT_2_SUBHEADER -->
+          <p>[[16_SECTION_1_BENEFIT_2_SUBHEADER]]</p>
         </article>
+        <!-- Benefit #3 -->
         <article class="feature reveal">
+          <!-- [18] SECTION_1_BENEFIT_3_ICON — image filename in images/[[8_BRAND_SLUG]]/ -->
           <div class="feature-icon" aria-hidden="true">
-            <!-- Mint leaf -->
-            <svg viewBox="0 0 48 48">
-              <path d="M24 40c2-12 10-20 18-24-4 14-10 22-18 24z"/>
-              <path d="M24 40c-2-12-10-20-18-24 4 14 10 22 18 24z"/>
-              <path d="M24 40V16"/>
-            </svg>
+            <img src="images/[[8_BRAND_SLUG]]/[[18_SECTION_1_BENEFIT_3_ICON]]" alt="" width="48" height="48">
           </div>
-          <h3>Refreshing Mint</h3>
-          <p>A gum you'll actually enjoy chewing.</p>
+          <!-- [17] SECTION_1_BENEFIT_3_TITLE -->
+          <h3>[[17_SECTION_1_BENEFIT_3_TITLE]]</h3>
+          <!-- [19] SECTION_1_BENEFIT_3_SUBHEADER -->
+          <p>[[19_SECTION_1_BENEFIT_3_SUBHEADER]]</p>
         </article>
+        <!-- Benefit #4 -->
         <article class="feature reveal">
+          <!-- [21] SECTION_1_BENEFIT_4_ICON — image filename in images/[[8_BRAND_SLUG]]/ -->
           <div class="feature-icon" aria-hidden="true">
-            <!-- Pocket / on the go -->
-            <svg viewBox="0 0 48 48">
-              <path d="M14 10h20a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3z"/>
-              <path d="M11 18h26"/>
-              <path d="M20 28h8"/>
-            </svg>
+            <img src="images/[[8_BRAND_SLUG]]/[[21_SECTION_1_BENEFIT_4_ICON]]" alt="" width="48" height="48">
           </div>
-          <h3>On The Go</h3>
-          <p>No water or chalky tablets required.</p>
+          <!-- [20] SECTION_1_BENEFIT_4_TITLE -->
+          <h3>[[20_SECTION_1_BENEFIT_4_TITLE]]</h3>
+          <!-- [22] SECTION_1_BENEFIT_4_SUBHEADER -->
+          <p>[[22_SECTION_1_BENEFIT_4_SUBHEADER]]</p>
         </article>
       </div>
     </div>
@@ -562,31 +593,113 @@
 
   <section class="bottom-cta">
     <div class="wrap reveal">
-      <a class="btn js-checkout" href="https://buy.stripe.com/6oUcN40Vy9MJ6zk4uTbbG00">Get Soovi</a>
+      <!-- [23] BUTTON_2_MAIN_TEXT — secondary/bottom CTA -->
+      <a class="btn js-checkout js-checkout-2" href="#" data-cta="2">[[23_BUTTON_2_MAIN_TEXT]]</a>
     </div>
   </section>
 
   <footer>
-    <div class="brand">SOOVI</div>
-    <p>Heartburn Gum · Dietary Supplement</p>
-    <p style="margin-top:8px;">&copy; <span id="year"></span> Soovi. All rights reserved.</p>
+    <!-- [8] BRAND_NAME -->
+    <div class="brand">[[8_BRAND_NAME]]</div>
+    <p style="margin-top:8px;">&copy; <span id="year"></span> [[8_BRAND_NAME]]. All rights reserved.</p>
   </footer>
 
   <div class="modal-backdrop" id="guarantee-modal" role="dialog" aria-modal="true" aria-labelledby="guarantee-title" hidden>
     <div class="modal">
       <button type="button" class="modal-close js-modal-close" aria-label="Close">&times;</button>
       <h2 id="guarantee-title">Love It, Or We'll Make It Right.</h2>
-      <p>We created Soovi to be the heartburn relief you'll actually enjoy taking. If you're not completely satisfied with your first order, let us know within 30 days and we'll make it right.</p>
+      <p>We created [[8_BRAND_NAME]] to be the product you'll actually enjoy. If you're not completely satisfied with your first order, let us know within 30 days and we'll make it right.</p>
     </div>
   </div>
 
   <script>
     (function () {
-      var url = window.SOOVI_CHECKOUT_URL;
+      var AIRTABLE_BASE_ID = "appmBb0lzqRK9dI8v";
+      var AIRTABLE_USERS_TABLE = "tblGM0stPl82MxKkv";
+      var AIRTABLE_ACTIONS_TABLE = "tbls0h1LzvL3YKFtZ";
+      var AIRTABLE_BASE_URL = "/api/airtable/v0/" + AIRTABLE_BASE_ID;
+
+      var url = window.CHECKOUT_URL;
+      var metaId = window.PWB_META_ID;
+      var brandEl = document.querySelector("footer .brand");
+      var brandName = brandEl ? brandEl.textContent.trim() : "Landing Page";
+      var userRecordId = null;
+      var userReady = null;
+
+      function airtablePost(tableId, fields) {
+        return fetch(AIRTABLE_BASE_URL + "/" + encodeURIComponent(tableId), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ records: [{ fields: fields }], typecast: true }),
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            var data = null;
+            try { data = text ? JSON.parse(text) : null; } catch (e) {}
+            if (!res.ok) {
+              console.error("Airtable POST failed", tableId, res.status, (text || "").slice(0, 300));
+              throw new Error("Airtable " + res.status);
+            }
+            return data && data.records && data.records[0] ? data.records[0] : null;
+          });
+        });
+      }
+
+      function trackPixel(eventName, params, eventId) {
+        if (typeof fbq !== "function") return;
+        try {
+          fbq("track", eventName, params || {}, { eventID: eventId || metaId });
+        } catch (e) {
+          console.warn("Meta pixel track failed", eventName, e);
+        }
+      }
+
+      function logAction(actionName) {
+        if (!userRecordId) return Promise.resolve(null);
+        return airtablePost(AIRTABLE_ACTIONS_TABLE, {
+          Action: actionName,
+          Users: [userRecordId],
+        }).catch(function () { return null; });
+      }
+
+      // Create user row + Page Load action; Meta ID matches pixel eventID
+      userReady = airtablePost(AIRTABLE_USERS_TABLE, {
+        Product: brandName,
+        "Meta ID": metaId,
+      }).then(function (rec) {
+        if (!rec || !rec.id) return null;
+        userRecordId = rec.id;
+        return logAction("Page Load").then(function () { return userRecordId; });
+      }).catch(function () { return null; });
+
+      // Meta Pixel: product landing viewed (unique eventID derived from visitor Meta ID)
+      trackPixel("ViewContent", {
+        content_name: brandName,
+        content_type: "product",
+      }, metaId + "_ViewContent");
+
       document.querySelectorAll(".js-checkout").forEach(function (el) {
-        el.setAttribute("href", url);
+        var checkoutHref = url;
+        try {
+          if (url && url.indexOf("http") === 0) {
+            var u = new URL(url);
+            u.searchParams.set("client_reference_id", metaId);
+            checkoutHref = u.toString();
+          }
+        } catch (e) {}
+        el.setAttribute("href", checkoutHref);
         el.setAttribute("target", "_blank");
         el.setAttribute("rel", "noopener noreferrer");
+        el.addEventListener("click", function () {
+          var cta = el.getAttribute("data-cta") === "2" ? "2" : "1";
+          var actionName = cta === "2" ? "Click CTA 2" : "Click CTA 1";
+          trackPixel("InitiateCheckout", {
+            content_name: brandName,
+            content_type: "product",
+          }, metaId + "_cta" + cta);
+          userReady.then(function () {
+            return logAction(actionName);
+          });
+        });
       });
 
       document.getElementById("year").textContent = String(new Date().getFullYear());
