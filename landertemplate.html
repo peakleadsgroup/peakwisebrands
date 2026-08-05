@@ -103,10 +103,11 @@
     .hero-visual img {
       width: 100%;
       height: auto;
-      border-radius: 0;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: color-mix(in srgb, var(--primary) 6%, #fff);
+      border-radius: 12px;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      background: transparent;
     }
 
     /* —— Value prop —— */
@@ -492,8 +493,8 @@
         <img
           src="images/[[8_BRAND_SLUG]]/[[2_HERO_IMAGE]]"
           alt="[[8_BRAND_NAME]]"
-          width="1024"
-          height="1024"
+          width="1200"
+          height="900"
         >
       </div>
     </div>

@@ -113,7 +113,7 @@ images/soovi/icon-4.png
 | Image | Specs |
 |---|---|
 | Favicon / logo | Square PNG, transparent background |
-| Hero / header image | Top-of-page product visual (may include text/badges baked into the image) |
+| Hero / header image | Top-of-page product visual (may include text/badges baked into the image). **Do not force square crop** — template uses full natural aspect with `object-fit: contain` so banners/packaging edges are not cut off. |
 | Benefit icons (×4) | PNG or SVG; shown at 48×48 — keep simple and clear |
 
 Template paths look like: `images/[[8_BRAND_SLUG]]/[[1_FAVICON]]`
