@@ -6,7 +6,7 @@
 2. **Always create both pages together** for a brand:
    - Lander → `{slug}.html` (from `landertemplate.html`)
    - Thank-you → `{slug}-redirect.html` (from `redirecttemplate.html`)
-3. Replace every `[[...]]` placeholder in each copy. Search for `[[` when done — **zero** matches left.
+3. Replace every `[[...]]` placeholder in each copy. For **colors**, replace the hex next to the `[[24_…]]` / `[[25_…]]` comments (do not put tokens into the CSS value). For everything else, replace the `[[…]]` token itself. Search for `[[` when done — **zero** matches left in content (color comment markers may remain, or delete them after swapping hexes).
 4. Do not remove Meta Pixel, Airtable tracking, or Stripe session lookup code.
 
 | Template | Copy to |
@@ -129,22 +129,28 @@ Template paths look like: `images/[[8_BRAND_SLUG]]/[[1_FAVICON]]`
 | 21 | Benefit #4 icon filename | `[[21_SECTION_1_BENEFIT_4_ICON]]` | Fourth `.feature-icon` `<img>` |
 | 22 | Benefit #4 subheader | `[[22_SECTION_1_BENEFIT_4_SUBHEADER]]` | Fourth `.feature` `<p>` |
 | 23 | Button 2 main text | `[[23_BUTTON_2_MAIN_TEXT]]` | Bottom CTA `<a class="btn">` in `.bottom-cta` |
-| 24 | Primary color | `[[24_PRIMARY_COLOR]]` | `:root` → `--primary` (hex, e.g. `#5c2d91`) |
-| 24b | Primary color dark | `[[24_PRIMARY_COLOR_DARK]]` | `:root` → `--primary-dark` (darker hex for hover/shadow, e.g. `#451f6e`) |
-| 25 | Secondary color | `[[25_SECONDARY_COLOR]]` | `:root` → `--secondary` (hex, e.g. `#6bbf45`) |
+| 24 | Primary color | `[[24_PRIMARY_COLOR]]` | Comment beside `--primary` hex in `:root` — replace the hex |
+| 24b | Primary color dark | `[[24_PRIMARY_COLOR_DARK]]` | Comment beside `--primary-dark` hex |
+| 25 | Secondary color | `[[25_SECONDARY_COLOR]]` | Comment beside `--secondary` hex |
 | 26 | Stripe Payment Link URL | `[[26_CHECKOUT_URL]]` | `window.CHECKOUT_URL` — full `https://buy.stripe.com/…` link |
 
 ## Colors (items 24–25)
 
-Swap brand colors in **one place only**: the `:root` CSS variables at the top of `landertemplate.html`. Everything else uses `var(--primary)`, `var(--primary-dark)`, and `var(--secondary)`.
+Swap brand colors on the **hex values** in `:root` (both lander and thank-you). Search for `[[24_PRIMARY_COLOR]]` etc. — they live in comments on the same line as the hex.
 
-| Role | Token | Used for | Example (current template look) |
+```css
+--primary: #5c2d91; /* [[24_PRIMARY_COLOR]] */
+--primary-dark: #451f6e; /* [[24_PRIMARY_COLOR_DARK]] */
+--secondary: #6bbf45; /* [[25_SECONDARY_COLOR]] */
+```
+
+Replace `#5c2d91` / `#451f6e` / `#6bbf45` with the brand hexes (inferred from logo/packaging). Do **not** put `[[…]]` tokens in the CSS value itself — that breaks the page colors.
+
+| Role | Token (in comment) | Used for | Default example |
 |---|---|---|---|
-| Primary | `[[24_PRIMARY_COLOR]]` | Buttons, headings, checkmarks, footer brand, accents | `#5c2d91` (purple) |
-| Primary dark | `[[24_PRIMARY_COLOR_DARK]]` | Button hover + button drop shadow | `#451f6e` (darker purple) |
-| Secondary | `[[25_SECONDARY_COLOR]]` | Helper-text badge above button 1, guarantee check icon | `#6bbf45` (green) |
-
-Use valid CSS hex values (with `#`). Do not leave the `[[...]]` tokens — invalid CSS will break the page colors.
+| Primary | `[[24_PRIMARY_COLOR]]` | Buttons, headings, checkmarks, footer brand, accents | `#5c2d91` |
+| Primary dark | `[[24_PRIMARY_COLOR_DARK]]` | Button hover + button drop shadow | `#451f6e` |
+| Secondary | `[[25_SECONDARY_COLOR]]` | Helper-text badge, guarantee / thank-you check | `#6bbf45` |
 
 ## Also update (lander)
 
@@ -212,9 +218,9 @@ The lander appends `client_reference_id={Meta ID}` to the checkout URL so Meta I
 | 1 | Favicon / logo filename | `[[1_FAVICON]]` | `images/[[8_BRAND_SLUG]]/[[1_FAVICON]]` (tab icon + page logo) |
 | 8 | Brand name (display) | `[[8_BRAND_NAME]]` | Title, alt, Airtable `Product` — replace **every** occurrence |
 | 8 | Brand slug | `[[8_BRAND_SLUG]]` | Image paths |
-| 24 | Primary color | `[[24_PRIMARY_COLOR]]` | `:root` → `--primary` (same hex as lander) |
-| 24b | Primary color dark | `[[24_PRIMARY_COLOR_DARK]]` | `:root` → `--primary-dark` (same as lander) |
-| 25 | Secondary color | `[[25_SECONDARY_COLOR]]` | `:root` → `--secondary` (checkmark badge; same as lander) |
+| 24 | Primary color | `[[24_PRIMARY_COLOR]]` | Comment beside `--primary` hex (same as lander) |
+| 24b | Primary color dark | `[[24_PRIMARY_COLOR_DARK]]` | Comment beside `--primary-dark` hex |
+| 25 | Secondary color | `[[25_SECONDARY_COLOR]]` | Comment beside `--secondary` hex |
 
 ## Airtable write on purchase (`tblGM0stPl82MxKkv`)
 
