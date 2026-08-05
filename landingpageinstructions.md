@@ -21,6 +21,7 @@
 | Brand | Slug | Lander | Thank-you |
 |---|---|---|---|
 | Nibs | `nibs` | `nibs.html` | `nibs-redirect.html` |
+| Alder | `alder` | `alder.html` | `alder-redirect.html` |
 
 When you ship a new brand, add a row here.
 
