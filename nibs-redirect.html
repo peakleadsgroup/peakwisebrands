@@ -294,12 +294,35 @@
         return fields;
       }
 
+      function storageGet(key) {
+        try { return window.sessionStorage.getItem(key); } catch (e) { return null; }
+      }
+      function storageSet(key, val) {
+        try { window.sessionStorage.setItem(key, val); } catch (e) {}
+      }
+
+      /** Idempotency key: Stripe session wins; else Meta ID + brand (weaker). */
+      function purchaseLockKey(sessionId) {
+        if (sessionId) return "pwb_purchase_done:" + sessionId;
+        return "pwb_purchase_done:meta:" + brandName + ":" + metaId;
+      }
+
+      function alreadyCompleted(sessionId) {
+        return storageGet(purchaseLockKey(sessionId)) === "1";
+      }
+
+      function markCompleted(sessionId) {
+        storageSet(purchaseLockKey(sessionId), "1");
+        if (sessionId) storageSet("pwb_last_session_id", sessionId);
+      }
+
       /**
        * Update the existing Users row (from lander Page Load) by Meta ID.
        * Only creates a new row if none exists (edge case: landed on thank-you without lander visit).
+       * Guarded by in-memory + sessionStorage locks so refresh / double-load cannot triple-write.
        */
-      function savePurchase(info) {
-        if (saved) return Promise.resolve(null);
+      function savePurchase(info, sessionId) {
+        if (saved || alreadyCompleted(sessionId)) return Promise.resolve(null);
         saved = true;
         var userFields = buildAirtableFields(info || {});
 
@@ -310,6 +333,29 @@
                 return existing;
               });
             }
+            // Prefer matching by email if Meta ID missed (Payment Link without client_reference_id)
+            var email = info && info.email ? String(info.email).trim() : "";
+            if (email) {
+              var formula = "AND({Email}='" + escapeFormula(email) + "',{Product}='" + escapeFormula(brandName) + "')";
+              var url =
+                AIRTABLE_BASE_URL +
+                "/" +
+                encodeURIComponent(AIRTABLE_USERS_TABLE) +
+                "?maxRecords=1&filterByFormula=" +
+                encodeURIComponent(formula);
+              return fetch(url, { headers: { Accept: "application/json" } }).then(function (res) {
+                return res.json().then(function (data) {
+                  var rec = data && data.records && data.records[0] ? data.records[0] : null;
+                  if (rec && rec.id) {
+                    return airtablePatch(AIRTABLE_USERS_TABLE, rec.id, userFields).then(function () {
+                      return rec;
+                    });
+                  }
+                  console.warn("No Users row for Meta ID/email — creating one", metaId, email);
+                  return airtablePost(AIRTABLE_USERS_TABLE, userFields);
+                });
+              });
+            }
             console.warn("No Users row for Meta ID — creating one", metaId);
             return airtablePost(AIRTABLE_USERS_TABLE, userFields);
           })
@@ -318,7 +364,10 @@
             return airtablePost(AIRTABLE_ACTIONS_TABLE, {
               Action: "Purchase",
               Users: [rec.id],
-            }).then(function () { return rec; });
+            }).then(function () {
+              markCompleted(sessionId);
+              return rec;
+            });
           })
           .catch(function (e) {
             console.error("Purchase save failed", e);
@@ -331,8 +380,13 @@
        * Fire Meta Purchase with eventID === Meta ID (Airtable "Meta ID").
        * Any Conversions API Purchase must send the same event_id for deduplication.
        */
-      function firePurchasePixel(info) {
+      function firePurchasePixel(info, sessionId) {
         if (purchaseFired) return;
+        // If this checkout session already completed in this browser, skip pixel re-fire on refresh
+        if (sessionId && alreadyCompleted(sessionId)) {
+          purchaseFired = true;
+          return;
+        }
         purchaseFired = true;
 
         var value = 0;
@@ -367,6 +421,13 @@
       }
 
       var sessionId = firstParam("session_id", "checkout_session_id");
+
+      // Hard stop on refresh / multi-tab for the same Stripe Checkout Session
+      if (sessionId && alreadyCompleted(sessionId)) {
+        console.info("Purchase already recorded for session", sessionId);
+        return;
+      }
+
       var start = sessionId
         ? fieldsFromStripeSession(sessionId).then(function (fromStripe) {
             var q = fieldsFromQuery();
@@ -376,12 +437,16 @@
 
       start.then(function (info) {
         if (info && info.clientReferenceId) setMetaId(info.clientReferenceId);
-        firePurchasePixel(info || {});
-        return savePurchase(info || {});
+        // Re-check after async Stripe lookup (another tab may have finished)
+        if (sessionId && alreadyCompleted(sessionId)) return null;
+        firePurchasePixel(info || {}, sessionId);
+        return savePurchase(info || {}, sessionId);
       }).catch(function (e) {
         console.error("Thank-you flow failed", e);
-        // Still attempt Purchase with whatever Meta ID we have
-        firePurchasePixel({});
+        // Only fire pixel fallback once; do NOT create Airtable rows without a lock if session unknown
+        if (!(sessionId && alreadyCompleted(sessionId))) {
+          firePurchasePixel({}, sessionId);
+        }
       });
     })();
   </script>

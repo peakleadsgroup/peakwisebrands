@@ -284,6 +284,16 @@ Then create a **Peak Wise Actions** row (`tbls0h1LzvL3YKFtZ`):
 
 Query-param fallbacks (for testing without Stripe): `first_name`, `last_name`, `email`, `phone`, `street` / `address`, `city`, `state`, `zip`, `meta_id`, `session_id`.
 
+
+### Thank-you idempotency (do not regress)
+
+The thank-you page must **not** create duplicate Users / Purchase actions on refresh.
+
+1. Prefer Stripe `session_id` as the lock key (`sessionStorage`: `pwb_purchase_done:{session_id}`).
+2. In-memory flags alone are **not** enough (they reset every reload).
+3. Meta ID continuity comes from lander → Payment Link `client_reference_id` → Stripe session → thank-you. It is **not** the Stripe Customer ID (`cus_…`). Missing `session_id` or `client_reference_id` makes the page mint a new Meta ID and can create extra Users rows.
+4. After a successful write, mark the session complete before allowing another Airtable POST.
+
 ## Redirect checklist
 
 - [ ] Copied from `redirecttemplate.html` → `{slug}-redirect.html` (template file untouched)
