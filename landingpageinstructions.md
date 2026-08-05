@@ -2,7 +2,7 @@
 
 ## Hard rules
 
-1. **Never edit** `landertemplate.html`, `redirecttemplate.html`, or `landingpageinstructions.md` in place. Always **copy** a template into a new file, then edit the copy.
+1. **Never edit** `landertemplate.html` or `redirecttemplate.html` in place. Always **copy** a template into a new brand file, then edit the copy. You **may** update `landingpageinstructions.md` when the human asks for instruction changes (keep templates pristine).
 2. **Always create both pages together** for a brand:
    - Lander → `{slug}.html` (from `landertemplate.html`)
    - Thank-you → `{slug}-redirect.html` (from `redirecttemplate.html`)
@@ -15,6 +15,14 @@
 | `redirecttemplate.html` | `{slug}-redirect.html` (e.g. `soovi-redirect.html`) |
 
 `[[8_BRAND_SLUG]]` = lowercase slug, no spaces (hyphens ok). Must match both filenames and `images/[[8_BRAND_SLUG]]/`.
+
+### Live brands (keep current)
+
+| Brand | Slug | Lander | Thank-you |
+|---|---|---|---|
+| Nibs | `nibs` | `nibs.html` | `nibs-redirect.html` |
+
+When you ship a new brand, add a row here.
 
 ---
 
@@ -30,7 +38,9 @@ Agents need these before building. **Do not ask for brand colors** — infer pri
 | Hero / packaging image | Yes | Lander hero; also used to infer colors |
 | Benefit icons (×4) | Yes | Or generate simple icons that match the brand |
 | All lander copy (header, bullets, subheader, buttons, section, benefits) | Yes | See placeholder map |
-| Live site origin / domain | Yes | For Stripe success URL (e.g. `https://peakwisebrands.com`) |
+| Product price + short Stripe description | Yes | Used when agent creates the Payment Link (e.g. `$49.99` — box of 28 / 4-week supply) |
+| Live site origin / domain | Default OK | **Default:** `https://peakwisebrands.com` unless human specifies another host |
+| Thank-you / redirect **page** | Agent creates | Not a separate domain — create `{slug}-redirect.html` and point Stripe after-payment redirect there |
 | Stripe Payment Link | Create if missing | See **Stripe Payment Link** below → `[[26_CHECKOUT_URL]]` |
 
 Colors: pick hex values from the imagery (`[[24_PRIMARY_COLOR]]`, `[[24_PRIMARY_COLOR_DARK]]`, `[[25_SECONDARY_COLOR]]`) and use the **same** three on both pages.
@@ -39,19 +49,36 @@ Colors: pick hex values from the imagery (`[[24_PRIMARY_COLOR]]`, `[[24_PRIMARY_
 
 ## Stripe Payment Link (agents create this)
 
+Create a **live reusable** Payment Link (not a one-time Checkout Session) when the brand does not already have one.
+
 When creating the Payment Link for the brand, configure:
 
-1. **Collect shipping address** — required (thank-you page writes Street / City / State / Zip).
-2. **Collect phone number** — required (thank-you page writes Phone).
-3. **After payment → Redirect** to the thank-you page with session id:
+1. **Product + price** — product name = brand/offer name; amount from human; include a short description (servings / supply length) when provided.
+2. **Collect shipping address** — required (thank-you page writes Street / City / State / Zip). Default allowed country: **US** unless told otherwise.
+3. **Collect phone number** — required (thank-you page writes Phone).
+4. **Billing address** — required when the API allows (helps complete customer details).
+5. **After payment → Redirect** to the thank-you **page** (same site, not a new domain) with session id:
 
 ```
 https://{LIVE_DOMAIN}/{slug}-redirect.html?session_id={CHECKOUT_SESSION_ID}
 ```
 
-4. Put the Payment Link URL into the lander as `[[26_CHECKOUT_URL]]` (`window.CHECKOUT_URL`).
+`{LIVE_DOMAIN}` defaults to `https://peakwisebrands.com`.
+
+6. Put the Payment Link URL into the lander as `[[26_CHECKOUT_URL]]` (`window.CHECKOUT_URL`).
 
 The lander appends `client_reference_id={Meta ID}` automatically so the thank-you page can update the same Airtable user and dedupe Meta Purchase.
+
+### Example brand: Nibs (shipped)
+
+| Field | Value |
+|---|---|
+| Slug | `nibs` |
+| Pages | `nibs.html`, `nibs-redirect.html` |
+| Price | `$49.99` (28 servings / 4-week supply) |
+| Payment Link | set in `nibs.html` → `window.CHECKOUT_URL` |
+| Success URL | `https://peakwisebrands.com/nibs-redirect.html?session_id={CHECKOUT_SESSION_ID}` |
+| Assets | `images/nibs/` |
 
 ---
 
