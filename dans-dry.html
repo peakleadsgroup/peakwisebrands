@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- [8] BRAND_NAME — also update title/description to match the product -->
+  <title>Dan's Dry — Day-two hair, day-one feel.</title>
+  <meta name="description" content="Dan's Dry — dry shampoo for men. Day-two hair, day-one feel. Ocean Mist, 4 oz. $24.99.">
+  <meta name="robots" content="noindex,nofollow">
+  <!-- [1] FAVICON — square PNG with transparent background; lives in images/dans-dry/ -->
+  <link rel="icon" href="images/dans-dry/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Unique Meta / visitor ID for this page load — also saved to Airtable "Meta ID" -->
+  <script>
+    window.PWB_META_ID = (function () {
+      try {
+        if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+      } catch (e) {}
+      return "pwb_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
+    })();
+  </script>
+  <!-- Meta Pixel (Peak Wise Brands) — do not remove -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1152306306722430');
+    fbq('track', 'PageView', {}, { eventID: window.PWB_META_ID });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1152306306722430&ev=PageView&noscript=1"
+    alt=""
+  ></noscript>
+  <style>
+    :root {
+      --bg: #f3f1f6;
+      --bg-hero: #ffffff;
+      --surface: #ffffff;
+      --text: #1a1228;
+      --muted: #5c5368;
+      /* Colors: replace the hex values. Keep the [[…]] comments for search. */
+      /* [24] PRIMARY_COLOR — main brand color (buttons, headings, checks, accents) */
+      --primary: #112530; /* [[24_PRIMARY_COLOR]] */
+      /* [24b] PRIMARY_COLOR_DARK — darker shade for hover + button shadow */
+      --primary-dark: #051924; /* [[24_PRIMARY_COLOR_DARK]] */
+      /* [25] SECONDARY_COLOR — accent (CTA badge, guarantee icon) */
+      --secondary: #8ba9ab; /* [[25_SECONDARY_COLOR]] */
+      --border: #d9d0e4;
+      --shadow-btn: 3px 3px 0 var(--primary-dark);
+      --radius-hero: 0 0 28px 28px;
+      --max: 520px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* —— Hero —— */
+    .hero {
+      background: #ffffff;
+      border-radius: 0;
+      padding: 28px 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: none;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: rise 0.8s ease forwards;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      background: transparent;
+    }
+
+    /* —— Value prop —— */
+    .value {
+      padding: 32px 0 8px;
+      text-align: left;
+    }
+
+    .value .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .value-inner {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .value h1 {
+      font-size: clamp(1.85rem, 7vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .value h1 .accent {
+      display: block;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+
+    .benefits {
+      list-style: none;
+      margin: 28px 0 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .check {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: grid;
+      place-items: center;
+      margin-top: 1px;
+    }
+
+    .check svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .punchline {
+      margin-top: 28px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    /* —— CTA block —— */
+    .cta-block {
+      padding: 36px 0 48px;
+      text-align: center;
+    }
+
+    .btn-wrap {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 380px;
+      padding-top: 12px;
+    }
+
+    .btn-badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      background: var(--secondary);
+      color: var(--text);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: normal;
+      text-align: center;
+      max-width: calc(100% - 24px);
+      padding: 5px 12px;
+      border-radius: 6px;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 380px;
+      padding: 18px 28px;
+      background: var(--primary);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      border-radius: 999px;
+      box-shadow: var(--shadow-btn);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--primary-dark);
+    }
+
+    .guarantee {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .guarantee:hover span {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .guarantee svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .guarantee u {
+      text-underline-offset: 3px;
+    }
+
+    /* —— Modal —— */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(26, 18, 40, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      width: min(420px, 100%);
+      position: relative;
+      box-shadow: 0 20px 50px rgba(26, 18, 40, 0.25);
+      transform: translateY(10px);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-backdrop.open .modal {
+      transform: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 8px;
+      font-family: inherit;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .modal h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      padding-right: 28px;
+    }
+
+    .modal p {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* —— Features —— */
+    .features {
+      background: var(--surface);
+      padding: 56px 0 64px;
+    }
+
+    .features-head {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features-head h2 {
+      font-size: clamp(1.75rem, 6vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .features-head p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 34ch;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px 24px;
+    }
+
+    .feature {
+      text-align: center;
+      min-width: 0;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 14px;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--primary) 10%, transparent);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .feature-icon img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .feature h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .feature p {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .features-head h2,
+    .features-head p {
+      overflow-wrap: anywhere;
+    }
+
+    /* —— Bottom CTA —— */
+    .bottom-cta {
+      padding: 48px 0 56px;
+      text-align: center;
+    }
+
+    /* —— Footer —— */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 20px 40px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer .brand {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    /* —— Reveal on scroll —— */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (min-width: 640px) {
+      :root { --max: 560px; }
+
+      .hero { padding: 36px 28px 28px; }
+
+      .grid { gap: 44px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- [26] CHECKOUT_URL — Stripe Payment Link for this brand -->
+  <script>
+    window.CHECKOUT_URL = "https://buy.stripe.com/14A14m6fS4sp3n89PdbbG06";
+  </script>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-visual">
+        <!-- [2] HERO_IMAGE — product image (may include text/badges); lives in images/dans-dry/ -->
+        <img
+          src="images/dans-dry/hero.png"
+          alt="Dan's Dry"
+          width="1200"
+          height="900"
+        >
+      </div>
+    </div>
+  </header>
+
+  <section class="value">
+    <div class="wrap">
+      <div class="value-inner">
+        <!-- [3] HERO_HEADER — main headline; use .accent span for the primary-colored second line if desired -->
+        <h1 class="reveal">
+          Day-two hair.
+          <span class="accent">Day-one feel.</span>
+        </h1>
+        <ul class="benefits reveal">
+          <!-- [4] HERO_BULLET_1 / HERO_BULLET_2 / HERO_BULLET_3 -->
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Dry shampoo formulated specially for men
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Ocean Mist — a scent you’ll actually love
+          </li>
+          <li>
+            <span class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+            </span>
+            Kill greasy hair and look your best, instantly
+          </li>
+        </ul>
+        <!-- [5] HERO_SUBHEADER — punchline under the 3 bullets -->
+        <p class="punchline reveal">4 oz aerosol · shake well · day-two hair without the wash day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-block" id="buy">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="btn-wrap">
+          <!-- [7] BUTTON_1_HELPER_TEXT — small secondary-color badge above the button -->
+          <span class="btn-badge">OCEAN MIST · 4 OZ</span>
+          <!-- [6] BUTTON_1_MAIN_TEXT — primary CTA button -->
+          <a class="btn js-checkout js-checkout-1" href="#" data-cta="1">Shop Now — $24.99</a>
+        </div>
+        <button type="button" class="guarantee js-guarantee" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="var(--secondary)" stroke="none"/>
+            <polyline points="7 12.5 10.5 16 17 8.5" fill="none" stroke="#fff" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>30-Day <u>Happiness Guarantee</u></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <div class="features-head reveal">
+        <!-- [9] SECTION_1_HEADER -->
+        <h2>Why guys switch to Dan’s Dry</h2>
+        <!-- [10] SECTION_1_SUBHEADER -->
+        <p>Built for real hair, real schedules, and looking sharp between washes.</p>
+      </div>
+      <div class="grid">
+        <!-- Benefit #1 -->
+        <article class="feature reveal">
+          <!-- [12] SECTION_1_BENEFIT_1_ICON — image filename in images/dans-dry/ -->
+          <div class="feature-icon" aria-hidden="true">
+            <img src="images/dans-dry/icon-men.png" alt="" width="48" height="48" onerror="this.remove()">
+          </div>
+          <!-- [11] SECTION_1_BENEFIT_1_TITLE -->
+          <h3>Made for men</h3>
+          <!-- [13] SECTION_1_BENEFIT_1_SUBHEADER -->
+          <p>Dry shampoo formulated specially for men — not a watered-down unisex can.</p>
+        </article>
+        <!-- Benefit #2 -->
+        <article class="feature reveal">
+          <!-- [15] SECTION_1_BENEFIT_2_ICON — image filename in images/dans-dry/ -->
+          <div class="feature-icon" aria-hidden="true">
+            <img src="images/dans-dry/icon-scent.png" alt="" width="48" height="48" onerror="this.remove()">
+          </div>
+          <!-- [14] SECTION_1_BENEFIT_2_TITLE -->
+          <h3>Scents you’ll love</h3>
+          <!-- [16] SECTION_1_BENEFIT_2_SUBHEADER -->
+          <p>Ocean Mist keeps it fresh and clean — never powdery or perfume-y.</p>
+        </article>
+        <!-- Benefit #3 -->
+        <article class="feature reveal">
+          <!-- [18] SECTION_1_BENEFIT_3_ICON — image filename in images/dans-dry/ -->
+          <div class="feature-icon" aria-hidden="true">
+            <img src="images/dans-dry/icon-fresh.png" alt="" width="48" height="48" onerror="this.remove()">
+          </div>
+          <!-- [17] SECTION_1_BENEFIT_3_TITLE -->
+          <h3>Grease, gone</h3>
+          <!-- [19] SECTION_1_BENEFIT_3_SUBHEADER -->
+          <p>Absorbs oil fast so day-two (and day-three) hair looks intentional.</p>
+        </article>
+        <!-- Benefit #4 -->
+        <article class="feature reveal">
+          <!-- [21] SECTION_1_BENEFIT_4_ICON — image filename in images/dans-dry/ -->
+          <div class="feature-icon" aria-hidden="true">
+            <img src="images/dans-dry/icon-instant.png" alt="" width="48" height="48" onerror="this.remove()">
+          </div>
+          <!-- [20] SECTION_1_BENEFIT_4_TITLE -->
+          <h3>Look your best, instantly</h3>
+          <!-- [22] SECTION_1_BENEFIT_4_SUBHEADER -->
+          <p>A quick spray and you’re out the door looking sharp — no sink, no blow-dry.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-cta">
+    <div class="wrap reveal">
+      <!-- [23] BUTTON_2_MAIN_TEXT — secondary/bottom CTA -->
+      <a class="btn js-checkout js-checkout-2" href="#" data-cta="2">Get Dan’s Dry — $24.99</a>
+    </div>
+  </section>
+
+  <footer>
+    <!-- [8] BRAND_NAME -->
+    <div class="brand">Dan's Dry</div>
+    <p style="margin-top:8px;">&copy; <span id="year"></span> Dan's Dry. All rights reserved.</p>
+  </footer>
+
+  <div class="modal-backdrop" id="guarantee-modal" role="dialog" aria-modal="true" aria-labelledby="guarantee-title" hidden>
+    <div class="modal">
+      <button type="button" class="modal-close js-modal-close" aria-label="Close">&times;</button>
+      <h2 id="guarantee-title">Love It, Or We'll Make It Right.</h2>
+      <p>We created Dan's Dry to be the product you'll actually enjoy. If you're not completely satisfied with your first order, let us know within 30 days and we'll make it right.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var AIRTABLE_BASE_ID = "appmBb0lzqRK9dI8v";
+      var AIRTABLE_USERS_TABLE = "tblGM0stPl82MxKkv";
+      var AIRTABLE_ACTIONS_TABLE = "tbls0h1LzvL3YKFtZ";
+      var AIRTABLE_BASE_URL = "/api/airtable/v0/" + AIRTABLE_BASE_ID;
+
+      var url = window.CHECKOUT_URL;
+      var metaId = window.PWB_META_ID;
+      var brandEl = document.querySelector("footer .brand");
+      var brandName = brandEl ? brandEl.textContent.trim() : "Landing Page";
+      var userRecordId = null;
+      var userReady = null;
+
+      function airtablePost(tableId, fields) {
+        return fetch(AIRTABLE_BASE_URL + "/" + encodeURIComponent(tableId), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ records: [{ fields: fields }], typecast: true }),
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            var data = null;
+            try { data = text ? JSON.parse(text) : null; } catch (e) {}
+            if (!res.ok) {
+              console.error("Airtable POST failed", tableId, res.status, (text || "").slice(0, 300));
+              throw new Error("Airtable " + res.status);
+            }
+            return data && data.records && data.records[0] ? data.records[0] : null;
+          });
+        });
+      }
+
+      function trackPixel(eventName, params, eventId) {
+        if (typeof fbq !== "function") return;
+        try {
+          fbq("track", eventName, params || {}, { eventID: eventId || metaId });
+        } catch (e) {
+          console.warn("Meta pixel track failed", eventName, e);
+        }
+      }
+
+      function logAction(actionName) {
+        if (!userRecordId) return Promise.resolve(null);
+        return airtablePost(AIRTABLE_ACTIONS_TABLE, {
+          Action: actionName,
+          Users: [userRecordId],
+        }).catch(function () { return null; });
+      }
+
+      // Create user row + Page Load action; Meta ID matches pixel eventID
+      userReady = airtablePost(AIRTABLE_USERS_TABLE, {
+        Product: brandName,
+        "Meta ID": metaId,
+      }).then(function (rec) {
+        if (!rec || !rec.id) return null;
+        userRecordId = rec.id;
+        return logAction("Page Load").then(function () { return userRecordId; });
+      }).catch(function () { return null; });
+
+      // Meta Pixel: product landing viewed (unique eventID derived from visitor Meta ID)
+      trackPixel("ViewContent", {
+        content_name: brandName,
+        content_type: "product",
+      }, metaId + "_ViewContent");
+
+      document.querySelectorAll(".js-checkout").forEach(function (el) {
+        var checkoutHref = url;
+        try {
+          if (url && url.indexOf("http") === 0) {
+            var u = new URL(url);
+            u.searchParams.set("client_reference_id", metaId);
+            checkoutHref = u.toString();
+          }
+        } catch (e) {}
+        el.setAttribute("href", checkoutHref);
+        el.setAttribute("target", "_blank");
+        el.setAttribute("rel", "noopener noreferrer");
+        el.addEventListener("click", function () {
+          var cta = el.getAttribute("data-cta") === "2" ? "2" : "1";
+          var actionName = cta === "2" ? "Click CTA 2" : "Click CTA 1";
+          trackPixel("InitiateCheckout", {
+            content_name: brandName,
+            content_type: "product",
+          }, metaId + "_cta" + cta);
+          userReady.then(function () {
+            return logAction(actionName);
+          });
+        });
+      });
+
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      var modal = document.getElementById("guarantee-modal");
+      var lastFocus = null;
+
+      function openModal() {
+        lastFocus = document.activeElement;
+        modal.hidden = false;
+        requestAnimationFrame(function () {
+          modal.classList.add("open");
+        });
+        document.body.style.overflow = "hidden";
+        var closeBtn = modal.querySelector(".js-modal-close");
+        if (closeBtn) closeBtn.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+        setTimeout(function () {
+          modal.hidden = true;
+          if (lastFocus) lastFocus.focus();
+        }, 200);
+      }
+
+      document.querySelectorAll(".js-guarantee").forEach(function (el) {
+        el.addEventListener("click", openModal);
+      });
+
+      modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+      });
+
+      var nodes = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: "0px 0px -24px 0px" });
+        nodes.forEach(function (n) { io.observe(n); });
+      } else {
+        nodes.forEach(function (n) { n.classList.add("visible"); });
+      }
+    })();
+  </script>
+</body>
+</html>

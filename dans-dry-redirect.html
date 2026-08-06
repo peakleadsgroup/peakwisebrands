@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- [8] BRAND_NAME -->
+  <title>Thank You! — Dan's Dry</title>
+  <meta name="description" content="Thank you for your Dan's Dry order.">
+  <meta name="robots" content="noindex,nofollow">
+  <!-- [1] FAVICON — square PNG with transparent background; lives in images/dans-dry/ -->
+  <link rel="icon" href="images/dans-dry/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Unique Meta / visitor ID — prefer Stripe client_reference_id / ?meta_id= from lander.
+       Purchase pixel eventID MUST equal this value for CAPI deduplication. -->
+  <script>
+    window.PWB_META_ID = (function () {
+      try {
+        var q = new URLSearchParams(window.location.search);
+        var fromUrl = q.get("meta_id") || q.get("client_reference_id");
+        if (fromUrl) return fromUrl;
+      } catch (e) {}
+      try {
+        if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+      } catch (e2) {}
+      return "pwb_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
+    })();
+    window.PWB_PIXEL_ID = "1152306306722430";
+  </script>
+  <!-- Meta Pixel (Peak Wise Brands) — do not remove. PageView waits until Meta ID is finalized below. -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.PWB_PIXEL_ID);
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1152306306722430&ev=PageView&noscript=1"
+    alt=""
+  ></noscript>
+  <style>
+    :root {
+      --bg: #f3f1f6;
+      --text: #1a1228;
+      --muted: #5c5368;
+      /* Colors: replace the hex values. Keep the [[…]] comments for search. Same as lander. */
+      /* [24] PRIMARY_COLOR */
+      --primary: #112530; /* [[24_PRIMARY_COLOR]] */
+      /* [24b] PRIMARY_COLOR_DARK */
+      --primary-dark: #051924; /* [[24_PRIMARY_COLOR_DARK]] */
+      /* [25] SECONDARY_COLOR */
+      --secondary: #8ba9ab; /* [[25_SECONDARY_COLOR]] */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, color-mix(in srgb, var(--primary) 12%, white) 0%, transparent 55%),
+        var(--bg);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px 20px;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+    }
+
+    .card {
+      width: min(420px, 100%);
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      margin: 0 auto 28px;
+    }
+
+    .badge {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: var(--secondary);
+      display: grid;
+      place-items: center;
+    }
+
+    .badge svg {
+      width: 28px;
+      height: 28px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    h1 {
+      font-size: clamp(1.85rem, 6vw, 2.35rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 28ch;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="card">
+    <img class="logo" src="images/dans-dry/favicon.png" alt="Dan's Dry" width="72" height="72">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><polyline points="5 13 10 18 19 7"/></svg>
+    </div>
+    <!-- Fixed copy — do not swap -->
+    <h1>Thank You!</h1>
+    <p>We'll let you know as soon as the product ships</p>
+  </main>
+
+  <script>
+    (function () {
+      var AIRTABLE_BASE_ID = "appmBb0lzqRK9dI8v";
+      var AIRTABLE_USERS_TABLE = "tblGM0stPl82MxKkv";
+      var AIRTABLE_ACTIONS_TABLE = "tbls0h1LzvL3YKFtZ";
+      var AIRTABLE_BASE_URL = "/api/airtable/v0/" + AIRTABLE_BASE_ID;
+      var PIXEL_ID = window.PWB_PIXEL_ID || "1152306306722430";
+
+      var brandName = "Dan's Dry";
+      var params = new URLSearchParams(window.location.search);
+      var metaId = window.PWB_META_ID;
+      var saved = false;
+      var purchaseFired = false;
+
+      function firstParam() {
+        for (var i = 0; i < arguments.length; i++) {
+          var v = params.get(arguments[i]);
+          if (v != null && String(v).trim() !== "") return String(v).trim();
+        }
+        return "";
+      }
+
+      function setMetaId(id) {
+        if (!id) return;
+        metaId = String(id);
+        window.PWB_META_ID = metaId;
+      }
+
+      function trackPixel(eventName, payload, eventId) {
+        if (typeof fbq !== "function") return;
+        try {
+          // eventID must match CAPI event_id for deduplication (Purchase → Airtable Meta ID)
+          fbq("track", eventName, payload || {}, { eventID: eventId || metaId });
+        } catch (e) {
+          console.warn("Meta pixel track failed", eventName, e);
+        }
+      }
+
+      function airtablePost(tableId, fields) {
+        return fetch(AIRTABLE_BASE_URL + "/" + encodeURIComponent(tableId), {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ records: [{ fields: fields }], typecast: true }),
+        }).then(function (res) {
+          return res.text().then(function (text) {
+            var data = null;
+            try { data = text ? JSON.parse(text) : null; } catch (e) {}
+            if (!res.ok) {
+              console.error("Airtable POST failed", tableId, res.status, (text || "").slice(0, 300));
+              throw new Error("Airtable " + res.status);
+            }
+            return data && data.records && data.records[0] ? data.records[0] : null;
+          });
+        });
+      }
+
+      function airtablePatch(tableId, recordId, fields) {
+        return fetch(
+          AIRTABLE_BASE_URL + "/" + encodeURIComponent(tableId) + "/" + encodeURIComponent(recordId),
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ fields: fields, typecast: true }),
+          }
+        ).then(function (res) {
+          return res.text().then(function (text) {
+            var data = null;
+            try { data = text ? JSON.parse(text) : null; } catch (e) {}
+            if (!res.ok) {
+              console.error("Airtable PATCH failed", tableId, res.status, (text || "").slice(0, 300));
+              throw new Error("Airtable " + res.status);
+            }
+            return data;
+          });
+        });
+      }
+
+      function escapeFormula(s) {
+        return String(s || "").replace(/'/g, "\\'");
+      }
+
+      /** Find the Users row created on lander page load (same Meta ID). */
+      function findUserByMetaId(id) {
+        var formula = "{Meta ID}='" + escapeFormula(id) + "'";
+        var url =
+          AIRTABLE_BASE_URL +
+          "/" +
+          encodeURIComponent(AIRTABLE_USERS_TABLE) +
+          "?maxRecords=1&filterByFormula=" +
+          encodeURIComponent(formula);
+        return fetch(url, { headers: { Accept: "application/json" } }).then(function (res) {
+          return res.text().then(function (text) {
+            var data = null;
+            try { data = text ? JSON.parse(text) : null; } catch (e) {}
+            if (!res.ok) {
+              console.error("Airtable find user failed", res.status, (text || "").slice(0, 300));
+              return null;
+            }
+            return data && data.records && data.records[0] ? data.records[0] : null;
+          });
+        });
+      }
+
+      /** Pull customer fields from URL query (fallback / testing). */
+      function fieldsFromQuery() {
+        return {
+          firstName: firstParam("first_name", "firstName", "firstname"),
+          lastName: firstParam("last_name", "lastName", "lastname"),
+          email: firstParam("email"),
+          phone: firstParam("phone", "tel"),
+          streetAddress: firstParam("street", "street_address", "address", "line1"),
+          city: firstParam("city"),
+          state: firstParam("state"),
+          zip: firstParam("zip", "postal_code", "zipcode"),
+          clientReferenceId: firstParam("client_reference_id", "meta_id"),
+          amountTotal: null,
+          currency: firstParam("currency") || "usd",
+        };
+      }
+
+      /** Fetch Checkout Session details via Cloudflare function. */
+      function fieldsFromStripeSession(sessionId) {
+        return fetch("/api/stripe/checkout-session?session_id=" + encodeURIComponent(sessionId), {
+          headers: { Accept: "application/json" },
+        }).then(function (res) {
+          return res.json().then(function (data) {
+            if (!res.ok || !data || !data.ok) {
+              console.error("Stripe session lookup failed", res.status, data);
+              return null;
+            }
+            if (data.clientReferenceId) setMetaId(data.clientReferenceId);
+            return data;
+          });
+        }).catch(function (e) {
+          console.error("Stripe session lookup error", e);
+          return null;
+        });
+      }
+
+      function buildAirtableFields(info) {
+        var fields = {
+          Product: brandName,
+          "Meta ID": metaId,
+        };
+        if (info.firstName) fields["First Name"] = info.firstName;
+        if (info.lastName) fields["Last Name"] = info.lastName;
+        if (info.email) fields.Email = info.email;
+        if (info.phone) fields.Phone = info.phone;
+        if (info.streetAddress) fields["Street Address"] = info.streetAddress;
+        if (info.city) fields.City = info.city;
+        if (info.state) fields.State = info.state;
+        if (info.zip) {
+          var zipNum = Number(String(info.zip).replace(/[^0-9]/g, ""));
+          fields.Zip = isNaN(zipNum) ? info.zip : zipNum;
+        }
+        return fields;
+      }
+
+      function storageGet(key) {
+        try { return window.sessionStorage.getItem(key); } catch (e) { return null; }
+      }
+      function storageSet(key, val) {
+        try { window.sessionStorage.setItem(key, val); } catch (e) {}
+      }
+
+      /** Idempotency key: Stripe session wins; else Meta ID + brand (weaker). */
+      function purchaseLockKey(sessionId) {
+        if (sessionId) return "pwb_purchase_done:" + sessionId;
+        return "pwb_purchase_done:meta:" + brandName + ":" + metaId;
+      }
+
+      function alreadyCompleted(sessionId) {
+        return storageGet(purchaseLockKey(sessionId)) === "1";
+      }
+
+      function markCompleted(sessionId) {
+        storageSet(purchaseLockKey(sessionId), "1");
+        if (sessionId) storageSet("pwb_last_session_id", sessionId);
+      }
+
+      /**
+       * Update the existing Users row (from lander Page Load) by Meta ID.
+       * Only creates a new row if none exists (edge case: landed on thank-you without lander visit).
+       * Guarded by in-memory + sessionStorage locks so refresh / double-load cannot triple-write.
+       */
+      function savePurchase(info, sessionId) {
+        if (saved || alreadyCompleted(sessionId)) return Promise.resolve(null);
+        saved = true;
+        var userFields = buildAirtableFields(info || {});
+
+        return findUserByMetaId(metaId)
+          .then(function (existing) {
+            if (existing && existing.id) {
+              return airtablePatch(AIRTABLE_USERS_TABLE, existing.id, userFields).then(function () {
+                return existing;
+              });
+            }
+            // Prefer matching by email if Meta ID missed (Payment Link without client_reference_id)
+            var email = info && info.email ? String(info.email).trim() : "";
+            if (email) {
+              var formula = "AND({Email}='" + escapeFormula(email) + "',{Product}='" + escapeFormula(brandName) + "')";
+              var url =
+                AIRTABLE_BASE_URL +
+                "/" +
+                encodeURIComponent(AIRTABLE_USERS_TABLE) +
+                "?maxRecords=1&filterByFormula=" +
+                encodeURIComponent(formula);
+              return fetch(url, { headers: { Accept: "application/json" } }).then(function (res) {
+                return res.json().then(function (data) {
+                  var rec = data && data.records && data.records[0] ? data.records[0] : null;
+                  if (rec && rec.id) {
+                    return airtablePatch(AIRTABLE_USERS_TABLE, rec.id, userFields).then(function () {
+                      return rec;
+                    });
+                  }
+                  console.warn("No Users row for Meta ID/email — creating one", metaId, email);
+                  return airtablePost(AIRTABLE_USERS_TABLE, userFields);
+                });
+              });
+            }
+            console.warn("No Users row for Meta ID — creating one", metaId);
+            return airtablePost(AIRTABLE_USERS_TABLE, userFields);
+          })
+          .then(function (rec) {
+            if (!rec || !rec.id) return null;
+            return airtablePost(AIRTABLE_ACTIONS_TABLE, {
+              Action: "Purchase",
+              Users: [rec.id],
+            }).then(function () {
+              markCompleted(sessionId);
+              return rec;
+            });
+          })
+          .catch(function (e) {
+            console.error("Purchase save failed", e);
+            saved = false;
+            return null;
+          });
+      }
+
+      /**
+       * Fire Meta Purchase with eventID === Meta ID (Airtable "Meta ID").
+       * Any Conversions API Purchase must send the same event_id for deduplication.
+       */
+      function firePurchasePixel(info, sessionId) {
+        if (purchaseFired) return;
+        // If this checkout session already completed in this browser, skip pixel re-fire on refresh
+        if (sessionId && alreadyCompleted(sessionId)) {
+          purchaseFired = true;
+          return;
+        }
+        purchaseFired = true;
+
+        var value = 0;
+        if (info && info.amountTotal != null) {
+          var parsed = Number(info.amountTotal) / 100;
+          if (!isNaN(parsed)) value = parsed;
+        }
+
+        // Advanced matching when we have contact fields (helps Event Match Quality)
+        try {
+          var match = { external_id: metaId };
+          if (info && info.email) match.em = String(info.email).trim().toLowerCase();
+          if (info && info.phone) match.ph = String(info.phone).replace(/\D/g, "");
+          if (info && info.firstName) match.fn = String(info.firstName).trim().toLowerCase();
+          if (info && info.lastName) match.ln = String(info.lastName).trim().toLowerCase();
+          if (info && info.city) match.ct = String(info.city).trim().toLowerCase();
+          if (info && info.state) match.st = String(info.state).trim().toLowerCase();
+          if (info && info.zip) match.zp = String(info.zip).replace(/\s/g, "");
+          fbq("init", PIXEL_ID, match);
+        } catch (e) {}
+
+        // PageView gets its own eventID so it does not collide with lander PageView.
+        // Purchase eventID === Meta ID (Airtable "Meta ID") for browser ↔ CAPI deduplication.
+        trackPixel("PageView", {}, metaId + "_ThankYou");
+        trackPixel("Purchase", {
+          content_name: brandName,
+          content_type: "product",
+          currency: (info && info.currency ? String(info.currency).toUpperCase() : "USD"),
+          value: value,
+          contents: [{ id: brandName, quantity: 1 }],
+        }, metaId);
+      }
+
+      var sessionId = firstParam("session_id", "checkout_session_id");
+
+      // Hard stop on refresh / multi-tab for the same Stripe Checkout Session
+      if (sessionId && alreadyCompleted(sessionId)) {
+        console.info("Purchase already recorded for session", sessionId);
+        return;
+      }
+
+      var start = sessionId
+        ? fieldsFromStripeSession(sessionId).then(function (fromStripe) {
+            var q = fieldsFromQuery();
+            return Object.assign({}, q, fromStripe || {});
+          })
+        : Promise.resolve(fieldsFromQuery());
+
+      start.then(function (info) {
+        if (info && info.clientReferenceId) setMetaId(info.clientReferenceId);
+        // Re-check after async Stripe lookup (another tab may have finished)
+        if (sessionId && alreadyCompleted(sessionId)) return null;
+        firePurchasePixel(info || {}, sessionId);
+        return savePurchase(info || {}, sessionId);
+      }).catch(function (e) {
+        console.error("Thank-you flow failed", e);
+        // Only fire pixel fallback once; do NOT create Airtable rows without a lock if session unknown
+        if (!(sessionId && alreadyCompleted(sessionId))) {
+          firePurchasePixel({}, sessionId);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

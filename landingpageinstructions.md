@@ -23,6 +23,7 @@
 | Nibs | `nibs` | `nibs.html` | `nibs-redirect.html` |
 | Purus | `purus` | `purus.html` | `purus-redirect.html` |
 | Alder | `alder` | `alder.html` | `alder-redirect.html` |
+| Dan's Dry | `dans-dry` | `dans-dry.html` | `dans-dry-redirect.html` |
 
 When you ship a new brand, add a row here.
 
